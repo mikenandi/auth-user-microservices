@@ -51,4 +51,4 @@ yarn start:dev
 
 ## Microservice Communication
 
-This service uses TCP for inter-service communication. It listens for messages such as `create_user` and processes them accordingly.
+This service uses TCP for inter-service communication.

@@ -94,11 +94,3 @@ The `docker-compose.yml` file is located in the root directory. It includes conf
 
 - The **User Management Microservice** sends messages to the **Auth Microservice** via TCP.
 - The **Auth Microservice** listens for commands like `create_user`, `update_user`, and processes them accordingly.
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-This README file gives a basic overview of how to set up, run, and interact with both the Auth and User Management microservices using Docker Compose. Let me know if you need further clarification or adjustments!
