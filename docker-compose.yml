@@ -1,0 +1,47 @@
+services:
+  db_service:
+    image: postgres:alpine
+    container_name: db_container
+    environment:
+      POSTGRES_USER: yuza
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: user_auth_db
+    ports:
+      - "5436:5432"
+    volumes:
+      - ./data/bookstore:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  auth_service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth_service_container
+    environment:
+      DATABASE_URL: postgres://yuza:123456@db_service:5432/user_auth_db
+    depends_on:
+      - db_service
+    ports:
+      - "3001:3000"
+    networks:
+      - app-network
+
+  user_service:
+    build:
+      context: ./user-management
+      dockerfile: Dockerfile
+    container_name: user_service_container
+    environment:
+      DATABASE_URL: postgres://yuza:123456@db_service:5432/user_auth_db
+    depends_on:
+      - db_service
+    ports:
+      - "3002:3000"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
